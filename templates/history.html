@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>历史损耗 - 快餐店管理系统</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; padding: 20px; }
+        .container { max-width: 500px; margin: 0 auto; }
+        h1 { color: #333; margin-bottom: 20px; font-size: 24px; }
+        .card { background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .date-header { font-size: 16px; color: #333; font-weight: bold; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #eee; }
+        .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+        .stat { text-align: center; padding: 10px; background: #f8f9fa; border-radius: 8px; }
+        .stat-label { font-size: 12px; color: #666; }
+        .stat-value { font-size: 18px; font-weight: bold; color: #333; }
+        .stat-value.loss { color: #e53935; }
+        .dish-list { font-size: 14px; color: #666; }
+        .dish-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #f0f0f0; }
+        .dish-item:last-child { border-bottom: none; }
+        .empty { text-align: center; color: #999; padding: 40px; }
+        .nav { display: flex; gap: 10px; margin-bottom: 20px; }
+        .nav a { flex: 1; padding: 10px; text-align: center; background: #fff; border-radius: 8px; text-decoration: none; color: #666; font-size: 14px; }
+        .nav a.active { background: #007bff; color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 历史损耗（近7天）</h1>
+        
+        <div class="nav">
+            <a href="/">记录</a>
+            <a href="/history" class="active">历史</a>
+            <a href="/advice">AI建议</a>
+            <a href="/admin">管理</a>
+        </div>
+        
+        {% if records %}
+            {% for record in records %}
+            <div class="card">
+                <div class="date-header">{{ record.date }}</div>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-label">总销量</div>
+                        <div class="stat-value">{{ record.total_sales }}份</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">总剩余</div>
+                        <div class="stat-value">{{ record.total_remain }}份</div>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-label">总损耗金额</div>
+                        <div class="stat-value loss">¥{{ record.total_loss }}</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">损耗率</div>
+                        <div class="stat-value loss">{% if record.total_sales > 0 %}{{ (record.total_remain / record.total_sales * 100)|round(1) }}{% else %}0{% endif %}%</div>
+                    </div>
+                </div>
+                <div class="dish-list">
+                    {% for dish in record.dishes %}
+                    <div class="dish-item">
+                        <span>{{ dish.name }}</span>
+                        <span>卖{{ dish.sales }}剩{{ dish.remain }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="card">
+                <div class="empty">暂无数据，请先记录今日损耗</div>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>损耗记录 - 快餐店管理系统</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; padding: 20px; }
+        .container { max-width: 500px; margin: 0 auto; }
+        h1 { color: #333; margin-bottom: 20px; font-size: 24px; }
+        .card { background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 16px; }
+        label { display: block; margin-bottom: 6px; color: #666; font-size: 14px; }
+        select, input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+        select { background: #fff; }
+        .btn { width: 100%; padding: 14px; background: #007bff; color: #fff; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
+        .btn:active { background: #0056b3; }
+        .result { display: none; margin-top: 16px; padding: 16px; background: #e8f5e9; border-radius: 8px; }
+        .result.show { display: block; }
+        .result-item { margin-bottom: 8px; }
+        .result-label { color: #666; font-size: 14px; }
+        .result-value { color: #333; font-size: 18px; font-weight: bold; }
+        .error { background: #ffebee; color: #c62828; }
+        .nav { display: flex; gap: 10px; margin-bottom: 20px; }
+        .nav a { flex: 1; padding: 10px; text-align: center; background: #fff; border-radius: 8px; text-decoration: none; color: #666; font-size: 14px; }
+        .nav a.active { background: #007bff; color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📉 损耗记录</h1>
+        
+        <div class="nav">
+            <a href="/" class="active">记录</a>
+            <a href="/history">历史</a>
+            <a href="/advice">AI建议</a>
+            <a href="/admin">管理</a>
+        </div>
+        
+        <div class="card">
+            <form id="recordForm">
+                <div class="form-group">
+                    <label>选择菜品</label>
+                    <select name="dish_id" id="dishSelect" required>
+                        <option value="">-- 请选择 --</option>
+                        {% for dish in dishes %}
+                        <option value="{{ dish.id }}" data-price="{{ dish.cost_price }}">{{ dish.name }} (成本{{ dish.cost_price }}元)</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>今日销量（份）</label>
+                    <input type="number" name="sales_qty" id="salesQty" min="0" placeholder="今日卖出多少份" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>剩余量（份）</label>
+                    <input type="number" name="remain_qty" id="remainQty" min="0" placeholder="没卖掉剩多少份" required>
+                </div>
+                
+                <button type="submit" class="btn">提交记录</button>
+            </form>
+            
+            <div class="result" id="result">
+                <div class="result-item">
+                    <div class="result-label">菜品</div>
+                    <div class="result-value" id="resultDish">-</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">损耗率</div>
+                    <div class="result-value" id="resultRate">-</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">损耗金额</div>
+                    <div class="result-value" id="resultAmount">-</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('recordForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const dishId = document.getElementById('dishSelect').value;
+            const salesQty = document.getElementById('salesQty').value;
+            const remainQty = document.getElementById('remainQty').value;
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.classList.remove('show', 'error');
+            
+            try {
+                const response = await fetch('/api/record', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ dish_id: dishId, sales_qty: salesQty, remain_qty: remainQty })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('resultDish').textContent = data.dish_name;
+                    document.getElementById('resultRate').textContent = data.loss_rate + '%';
+                    document.getElementById('resultAmount').textContent = '¥' + data.loss_amount;
+                    resultDiv.classList.add('show');
+                    
+                    // 清空表单
+                    document.getElementById('salesQty').value = '';
+                    document.getElementById('remainQty').value = '';
+                } else {
+                    resultDiv.innerHTML = '<div class="result-value">' + data.error + '</div>';
+                    resultDiv.classList.add('show', 'error');
+                }
+            } catch (err) {
+                resultDiv.innerHTML = '<div class="result-value">提交失败，请重试</div>';
+                resultDiv.classList.add('show', 'error');
+            }
+        });
+    </script>
+</body>
+</html>

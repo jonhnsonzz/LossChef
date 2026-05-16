@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>菜品管理 - 快餐店管理系统</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; padding: 20px; }
+        .container { max-width: 500px; margin: 0 auto; }
+        h1 { color: #333; margin-bottom: 20px; font-size: 24px; }
+        .card { background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 16px; }
+        label { display: block; margin-bottom: 6px; color: #666; font-size: 14px; }
+        input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+        .btn { padding: 12px 24px; background: #28a745; color: #fff; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; }
+        .btn:active { background: #1e7e34; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { text-align: left; padding: 12px 0; border-bottom: 1px solid #eee; }
+        th { color: #666; font-size: 12px; font-weight: normal; }
+        td { font-size: 14px; }
+        .price { color: #e53935; font-weight: bold; }
+        .nav { display: flex; gap: 10px; margin-bottom: 20px; }
+        .nav a { flex: 1; padding: 10px; text-align: center; background: #fff; border-radius: 8px; text-decoration: none; color: #666; font-size: 14px; }
+        .nav a.active { background: #007bff; color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚙️ 菜品管理</h1>
+        
+        <div class="nav">
+            <a href="/">记录</a>
+            <a href="/history">历史</a>
+            <a href="/advice">AI建议</a>
+            <a href="/admin" class="active">管理</a>
+        </div>
+        
+        <div class="card">
+            <h3 style="margin-bottom: 12px; color: #333;">添加新菜品</h3>
+            <form action="/admin/add" method="POST">
+                <div class="form-group">
+                    <label>菜品名称</label>
+                    <input type="text" name="name" placeholder="例如：红烧肉套餐" required>
+                </div>
+                <div class="form-group">
+                    <label>成本单价（元）</label>
+                    <input type="number" name="cost_price" value="10.0" step="0.1" min="0" required>
+                </div>
+                <button type="submit" class="btn">添加菜品</button>
+            </form>
+        </div>
+        
+        <div class="card">
+            <h3 style="margin-bottom: 12px; color: #333;">菜品列表</h3>
+            {% if dishes %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>名称</th>
+                        <th>成本价</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dish in dishes %}
+                    <tr>
+                        <td>{{ dish.id }}</td>
+                        <td>{{ dish.name }}</td>
+                        <td class="price">¥{{ dish.cost_price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p style="color: #999; text-align: center; padding: 20px;">暂无菜品</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
