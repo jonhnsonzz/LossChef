@@ -1,94 +1,107 @@
-# 损耗宝 🍜
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.8+](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 
-**每天倒掉的菜，都是真金白银。损耗宝帮你管住这个漏洞。**
+# QuickLoss 🍜 — Restaurant Food Waste Tracker
 
-> 快餐店老板老张，每天关店前盘点：今天的宫保鸡丁卖了20份，但后厨报损了3份。"这3份哪去了？是真的坏掉了，还是备多了？明天到底该备多少货？" 损耗宝把这些问题变成数据，AI 帮你分析：备货建议精准到份。
+**Stop guessing how much food you're wasting. Start measuring it.**
 
-## 😰 餐饮老板的真实痛点
+> Restaurant owner Zhang closes up for the night. Today's Kung Pao Chicken sold 20 servings, but the kitchen reported 3 servings of waste. "Where did those 3 servings go? Did they really spoil, or did we just prep too much? How much should we prep tomorrow?" QuickLoss turns this into data — and the AI tells you exactly how much to prep next time.
 
-- **损耗看不见** — 食材进了后厨，到底用了多少、浪费了多少，全靠厨师口头报数
-- **备货靠经验** — 每天备多少菜，厨师凭感觉，备多了是损耗，备少了不够卖
-- **月底对不上账** — 营收看起来还行，但食材成本一算，发现钱不知道去哪了
-- **AI 建议太贵用不起** — 市面上的智能订货系统要几万元，小快餐店用不起
+[中文说明](README_CN.md)
 
-**损耗宝就是为解决这个问题：花小钱（甚至免费），把损耗从糊涂账变成可量化、可优化的数据。**
+---
 
-## 💡 损耗宝能做什么
+## 😰 The Problem
 
-### 1. 5秒记录损耗
-选菜品 → 输入销量 → 输入剩余量 → 自动算出这份菜今天损耗了几份、多少钱
+Every restaurant owner knows this:
 
-### 2. 损耗报表一目了然
-看近7天汇总：哪个菜损耗最高、哪天损耗异常、整体成本占比
+- **Waste is invisible** — Ingredients go into the kitchen, but how much was actually used vs. wasted? You rely on the chef's word
+- **Prep is guesswork** — Too much prep = waste, too little = sold out. The chef goes by feel
+- **Profit leaks** — Revenue looks fine, but food costs don't add up and you can't explain where the money went
+- **AI tools are unaffordable** — Smart ordering systems cost tens of thousands of yuan. Small restaurants are left out
 
-### 3. AI 给出备货建议
-基于你至少7天的历史数据，AI分析：明天每道菜应该备多少份，既不断货、又不浪费
+**QuickLoss makes waste measurable and optimizable — without the enterprise price tag.**
 
-## 📱 在什么场景下用
+## ✨ Features
 
-| 场景 | 怎么做 |
-|------|--------|
-| 关店盘点时 | 打开损耗宝，1分钟录入今天的损耗数据 |
-| 第二天备货前 | 打开AI建议页，看今天该备多少 |
-| 月底盘账时 | 打开报表，看看损耗率是不是在合理范围 |
+- **5-Second Logging** — Select dish → enter sales → enter leftovers → auto-calculates waste
+- **7-Day Dashboard** — See which dishes waste the most, which days are abnormal
+- **AI Prep Advice** — Based on your historical data, get next-day prep recommendations per dish
+- **Cost Tracking** — See exactly how much money your waste represents
 
-手机浏览器打开就能用，微信/Chrome均可。不需要下载App。
+## 📱 Compatibility
 
-## 🔒 数据安全
+Works in any phone or desktop browser. No app download, no account needed.
 
-- 数据存在你自己的SQLite数据库里，不上传到任何服务器
-- 不需要注册账号
-- 不追踪、不贩卖数据
+## 🔒 Data
 
-## 🚀 快速开始
+- All data stored in **your own SQLite database** — nothing uploaded
+- No account required
+- No tracking, no data selling
 
-### 环境要求
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
 - Python 3.8+
-- DeepSeek API Key（免费注册获取）
+- DeepSeek API Key
 
-### 安装
+### Installation
 
 ```bash
-# 克隆项目
 git clone https://github.com/jonhnsonzz/LossChef.git
 cd LossChef
-
-# 安装依赖
 pip install -r requirements.txt
-
-# 设置 DeepSeek API Key
-export DEEPSEEK_API_KEY="你的DeepSeek密钥"
 ```
 
-### 运行
+### Configuration
+
+```bash
+cp .env.example .env
+# Edit .env and set: DEEPSEEK_API_KEY=your_key_here
+```
+
+### Run
 
 ```bash
 python app.py
 ```
 
-浏览器打开 `http://localhost:5000`，手机和电脑都能用。
-
-## 📂 项目结构
-
-```
-LossChef/
-├── app.py           # Flask 主应用
-├── database.py      # 数据库操作
-├── models.py        # 数据模型
-├── templates/       # HTML 页面
-├── static/          # CSS/JS
-├── instance/        # SQLite 数据库（自动生成）
-└── requirements.txt # 依赖
-```
-
-## 💡 产品理念
-
-餐饮损耗不是"正常损耗"——它是利润的黑洞。
-
-大多数小快餐店不是故意浪费，而是没有工具来看见问题。
-
-损耗宝帮你：把每天的"差不多"变成有数据支撑的"精准"。
+Open `http://localhost:5000` in your browser (works on phone and desktop).
 
 ---
 
-**MIT 许可证：可自由使用，包括商用。**
+## 📂 Project Structure
+
+```
+LossChef/
+├── app.py           # Flask application
+├── database.py     # Database operations
+├── models.py       # Data models
+├── templates/      # HTML pages
+├── static/         # CSS/JS assets
+├── instance/       # SQLite database (auto-generated)
+└── requirements.txt
+```
+
+---
+
+## 💡 Philosophy
+
+Food waste isn't "normal overhead" — it's a profit leak.
+
+Most small restaurants don't waste intentionally. They just lack the tools to **see** the problem.
+
+QuickLoss turns daily "close enough" estimates into data-backed precision.
+
+---
+
+## 🤝 Contributing
+
+Contributions welcome! Feel free to open issues or submit pull requests.
+
+## 📄 License
+
+MIT License — free to use, including commercially.
