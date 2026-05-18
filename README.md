@@ -1,156 +1,94 @@
-# 🍜 QuickLoss — 快餐店损耗记录与智能补货助手
+# 损耗宝 🍜
 
-> 一款面向餐饮小店的轻量级损耗追踪工具，通过 AI 分析历史数据，提供科学的备货建议。
+**每天倒掉的菜，都是真金白银。损耗宝帮你管住这个漏洞。**
 
-[English](#english) | [中文](#中文)
+> 快餐店老板老张，每天关店前盘点：今天的宫保鸡丁卖了20份，但后厨报损了3份。"这3份哪去了？是真的坏掉了，还是备多了？明天到底该备多少货？" 损耗宝把这些问题变成数据，AI 帮你分析：备货建议精准到份。
 
----
+## 😰 餐饮老板的真实痛点
 
-## English
+- **损耗看不见** — 食材进了后厨，到底用了多少、浪费了多少，全靠厨师口头报数
+- **备货靠经验** — 每天备多少菜，厨师凭感觉，备多了是损耗，备少了不够卖
+- **月底对不上账** — 营收看起来还行，但食材成本一算，发现钱不知道去哪了
+- **AI 建议太贵用不起** — 市面上的智能订货系统要几万元，小快餐店用不起
 
-### 🍜 QuickLoss — Smart Loss Tracker & Restock Assistant for Fast Food Restaurants
+**损耗宝就是为解决这个问题：花小钱（甚至免费），把损耗从糊涂账变成可量化、可优化的数据。**
 
-**QuickLoss** is a lightweight web application designed for small restaurants to track food waste and get AI-powered restocking recommendations.
+## 💡 损耗宝能做什么
 
-### Features
+### 1. 5秒记录损耗
+选菜品 → 输入销量 → 输入剩余量 → 自动算出这份菜今天损耗了几份、多少钱
 
-- 📊 **Loss Recording** — Log daily sales and remaining food for each dish
-- 💰 **Auto Calculation** — Automatically calculates loss rate and monetary loss
-- 📅 **History Dashboard** — View 7-day aggregated loss data
-- 🤖 **AI Restock Advice** — Powered by DeepSeek LLM, provides科学的备货建议
-- 📱 **Mobile Friendly** — Responsive design works on phones and desktops
+### 2. 损耗报表一目了然
+看近7天汇总：哪个菜损耗最高、哪天损耗异常、整体成本占比
 
-### Tech Stack
+### 3. AI 给出备货建议
+基于你至少7天的历史数据，AI分析：明天每道菜应该备多少份，既不断货、又不浪费
 
-- **Backend**: Python Flask + SQLite
-- **Frontend**: Vanilla HTML/CSS (no framework)
-- **AI**: DeepSeek API (user provides their own API key)
+## 📱 在什么场景下用
 
-### Quick Start
+| 场景 | 怎么做 |
+|------|--------|
+| 关店盘点时 | 打开损耗宝，1分钟录入今天的损耗数据 |
+| 第二天备货前 | 打开AI建议页，看今天该备多少 |
+| 月底盘账时 | 打开报表，看看损耗率是不是在合理范围 |
 
-```bash
-# Clone the repository
-git clone https://github.com/YOUR_USERNAME/quickfood-mvp.git
-cd quickfood-mvp
+手机浏览器打开就能用，微信/Chrome均可。不需要下载App。
 
-# Create virtual environment
-python3 -m venv venv
-source venv/bin/activate  # Linux/Mac
-# venv\Scripts\activate    # Windows
+## 🔒 数据安全
 
-# Install dependencies
-pip install -r requirements.txt
+- 数据存在你自己的SQLite数据库里，不上传到任何服务器
+- 不需要注册账号
+- 不追踪、不贩卖数据
 
-# Set your DeepSeek API key
-export DEEPSEEK_API_KEY="your-api-key-here"
+## 🚀 快速开始
 
-# Run the application
-python app.py
-```
+### 环境要求
+- Python 3.8+
+- DeepSeek API Key（免费注册获取）
 
-Visit `http://localhost:5000` in your browser.
-
-### Environment Variables
-
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `DEEPSEEK_API_KEY` | Yes | Your DeepSeek API key |
-
-### Project Structure
-
-```
-quickfood-mvp/
-├── app.py           # Main Flask application
-├── database.py      # Database operations
-├── models.py        # Data models (SQLAlchemy)
-├── templates/       # HTML templates
-├── static/          # CSS/JS assets
-├── instance/        # SQLite database (auto-generated)
-└── requirements.txt # Python dependencies
-```
-
-### License
-
-MIT License
-
----
-
-## 中文
-
-### 🍜 QuickLoss — 快餐店损耗记录与智能补货助手
-
-**QuickLoss** 是一款面向中小型餐饮门店的轻量级工具，帮助餐饮从业者追踪每日食材损耗，并通过 AI 分析给出科学的补货建议。
-
-### 功能特点
-
-- 📊 **损耗记录** — 选择菜品 → 输入销量 → 输入剩余量 → 自动计算损耗
-- 💰 **金额换算** — 根据成本价自动算出损耗金额
-- 📅 **历史看板** — 查看近7天汇总数据，掌握损耗趋势
-- 🤖 **AI 补货建议** — 基于 DeepSeek 大模型，分析历史数据给出明天备货量建议
-- 📱 **手机适配** — 响应式布局，手机/电脑都能用
-
-### 技术栈
-
-- **后端**：Python Flask + SQLite（零配置，自带数据库）
-- **前端**：原生 HTML/CSS（无框架依赖，轻量运行）
-- **AI**：DeepSeek API（用户需自行提供 API Key）
-
-### 5分钟快速上手
+### 安装
 
 ```bash
 # 克隆项目
-git clone https://github.com/YOUR_USERNAME/quickfood-mvp.git
-cd quickfood-mvp
-
-# 创建虚拟环境
-python3 -m venv venv
-source venv/bin/activate  # Mac/Linux
-# venv\Scripts\activate    # Windows
+git clone https://github.com/jonhnsonzz/LossChef.git
+cd LossChef
 
 # 安装依赖
 pip install -r requirements.txt
 
-# 设置你的 DeepSeek API Key
-export DEEPSEEK_API_KEY="sk-xxxxxxxxxxxxxxxx"
+# 设置 DeepSeek API Key
+export DEEPSEEK_API_KEY="你的DeepSeek密钥"
+```
 
-# 启动应用
+### 运行
+
+```bash
 python app.py
 ```
 
-打开浏览器访问 `http://localhost:5000`
+浏览器打开 `http://localhost:5000`，手机和电脑都能用。
 
-### 环境变量说明
-
-| 变量名 | 必须 | 说明 |
-|--------|------|------|
-| `DEEPSEEK_API_KEY` | ✅ | 你的 DeepSeek API Key |
-
-### 界面预览
-
-- **损耗记录页**：选择菜品、输入今日销量、输入剩余量，提交后自动计算
-- **历史查询页**：查看近7天每日汇总（总销量、总剩余、总损耗金额）
-- **AI 建议页**：输入补货问题，AI 分析历史数据给出建议
-- **菜品管理页**：添加/删除菜品，设置成本价
-
-### 项目结构
+## 📂 项目结构
 
 ```
-quickfood-mvp/
+LossChef/
 ├── app.py           # Flask 主应用
 ├── database.py      # 数据库操作
-├── models.py        # 数据模型（SQLAlchemy）
-├── templates/       # HTML 页面模板
-├── static/          # 静态资源
-├── instance/        # SQLite 数据库文件（自动生成）
-└── requirements.txt # Python 依赖
+├── models.py        # 数据模型
+├── templates/       # HTML 页面
+├── static/          # CSS/JS
+├── instance/        # SQLite 数据库（自动生成）
+└── requirements.txt # 依赖
 ```
 
-### 致谢
+## 💡 产品理念
 
-- [Flask](https://flask.palletsprojects.com/) — 轻量级 Python Web 框架
-- [SQLAlchemy](https://www.sqlalchemy.org/) — Python ORM
-- [DeepSeek](https://deepseek.com/) — AI 大模型支持
+餐饮损耗不是"正常损耗"——它是利润的黑洞。
 
-### License
+大多数小快餐店不是故意浪费，而是没有工具来看见问题。
 
-MIT License
+损耗宝帮你：把每天的"差不多"变成有数据支撑的"精准"。
+
+---
+
+**MIT 许可证：可自由使用，包括商用。**
