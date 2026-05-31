@@ -1,11 +1,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 
-# QuickLoss 🍜 — Restaurant Food Waste Tracker
+# LossChef 🍜 — Restaurant Food Waste Tracker
 
 **Stop guessing how much food you're wasting. Start measuring it.**
 
-> Restaurant owner Zhang closes up for the night. Today's Kung Pao Chicken sold 20 servings, but the kitchen reported 3 servings of waste. "Where did those 3 servings go? Did they really spoil, or did we just prep too much? How much should we prep tomorrow?" QuickLoss turns this into data — and the AI tells you exactly how much to prep next time.
+> Restaurant owner Zhang closes up for the night. Today's Kung Pao Chicken sold 20 servings, but the kitchen reported 3 servings of waste. "Where did those 3 servings go? Did they really spoil, or did we just prep too much? How much should we prep tomorrow?" LossChef turns this into data — and the AI tells you exactly how much to prep next time.
 
 [中文说明](README_CN.md)
 
@@ -20,7 +20,7 @@ Every restaurant owner knows this:
 - **Profit leaks** — Revenue looks fine, but food costs don't add up and you can't explain where the money went
 - **AI tools are unaffordable** — Smart ordering systems cost tens of thousands of yuan. Small restaurants are left out
 
-**QuickLoss makes waste measurable and optimizable — without the enterprise price tag.**
+**LossChef makes waste measurable and optimizable — without the enterprise price tag.**
 
 ## ✨ Features
 
@@ -94,7 +94,7 @@ Food waste isn't "normal overhead" — it's a profit leak.
 
 Most small restaurants don't waste intentionally. They just lack the tools to **see** the problem.
 
-QuickLoss turns daily "close enough" estimates into data-backed precision.
+LossChef turns daily "close enough" estimates into data-backed precision.
 
 ---
 
